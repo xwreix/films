@@ -9,45 +9,28 @@ public class Main {
         List<Film> films2 = new ArrayList<>();
         listsFilling(films1, films2);
 
-        CopyMaker.copy(films1);
-        CopyMaker.copyWithStream(films2);
-        System.out.println();
-
-        IntersectionFinder.intersectionFinding(films1, films2);
-        IntersectionFinder.intersectionWithStream(films1, films2);
-        System.out.println();
-
-        Combination.combine(films1, films2);
-        Combination.combineWithStream(films1, films2);
-        System.out.println();
-
-        Sorting.sort(films1);
-        Sorting.sort(films2);
-        System.out.println();
-
-        Deletion.delete(films1, films2);
-        Deletion.deleteWithStream(films1, films2);
-        System.out.println();
-
-        ConverterToMap.convert(films1);
-        ConverterToMap.convertWithStream(films2);
-        System.out.println();
-
-        RatingFilter.filter(films1, 4.6);
-        RatingFilter.filterWithStream(films2, 8.0);
-        System.out.println();
-
-        LettersChecker.check(films1);
-        LettersChecker.checkWithStream(films2);
-        System.out.println();
-
-        RangeFilter.filter(films1, 3.0, 9.9);
-        RangeFilter.filterWithStream(films2, 5.5, 7.0);
-        System.out.println();
-
-        MaxAndMinFinder.finder(films1);
-        MaxAndMinFinder.finderWithStream(films2);
-        System.out.println();
+        System.out.println("Copies:\n" + StreamRealization.copy(films1) + "\n" + StandardRealization.copy(films2));
+        System.out.println("\nIntersection:\n" + StreamRealization.intersectionFinding(films1, films2) +
+                "\n" + StandardRealization.intersectionFinding(films1, films2));
+        System.out.println("\nCombination:\n" + StreamRealization.combine(films1, films2) +
+                "\n" + StandardRealization.combine(films1, films2));
+        System.out.println("\nSorted:\n" + StreamRealization.sort(films1));
+        StandardRealization.sort(films2);
+        System.out.println(films2);
+        System.out.println("\nDeletion:\n" + StreamRealization.delete(films1, films2) + "\n" +
+                StandardRealization.delete(films1, films2));
+        System.out.println("\nConverter:\n" + StreamRealization.convert(films1) + "\n" +
+                StandardRealization.convert(films2));
+        System.out.println("\nFilms with rating higher than 5.0: " + StreamRealization.ratingFilter(films1, 5.0));
+        System.out.println("Films with rating higher than 8.0: " + StandardRealization.ratingFilter(films2, 8.0));
+        System.out.println("\nFilms with only latin latters:" + StreamRealization.lettersChecker(films1) +
+                "\n" + StandardRealization.lettersChecker(films2));
+        System.out.println("\nFilms in the range from 3.0 to 5.0"
+                + StreamRealization.rangeFilter(films1, 3.0, 5.0));
+        System.out.println("Films in the range from 6.0 to 9.6" +
+                StandardRealization.rangeFilter(films2, 6.0, 9.6));
+        System.out.println("\nMax:\n" + StreamRealization.maxFinder(films1) + "\n" + StandardRealization.maxFinder(films2));
+        System.out.println("Min:\n" + StreamRealization.minFinder(films1) + "\n" + StandardRealization.minFinder(films2));
     }
 
     public static void listsFilling(List<Film> films1, List<Film> films2) {
