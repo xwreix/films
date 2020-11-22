@@ -6,14 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 public class StandardRealization {
-    public static List<Film> copy(List<Film> films) {
-        List<Film> copy = new ArrayList<>(films);
+    private final static double MAX_RATING = 10;
+    private final static double MIN_RATING = 0;
 
-        return copy;
+    public static List<Film> copy(List<Film> films) {
+        return new ArrayList<>(films);
     }
 
     public static List<Film> combine(List<Film> films1, List<Film> films2) {
-        List<Film> combination = new ArrayList<>(films1);
+        List<Film> combination = copy(films1);
         combination.addAll(films2);
 
         return combination;
@@ -30,12 +31,14 @@ public class StandardRealization {
         Map<Double, Integer> films = new HashMap<>();
 
         for (Film film : filmList) {
-            if (films.containsKey(film.getRating())) {
-                int counter = films.get(film.getRating());
+            double rating = film.getRating();
+
+            if (films.containsKey(rating)) {
+                int counter = films.get(rating);
                 counter++;
-                films.put(film.getRating(), counter);
+                films.put(rating, counter);
             } else {
-                films.put(film.getRating(), 1);
+                films.put(rating, 1);
             }
         }
 
@@ -43,16 +46,9 @@ public class StandardRealization {
     }
 
     public static List<Film> lettersChecker(List<Film> films) {
-        List<Film> incorrect = new ArrayList<>();
-        List<Film> result = new ArrayList<>(films);
+        List<Film> result = copy(films);
 
-        for (Film film : films) {
-            if (!film.getName().matches("^[a-zA-Z]+$")) {
-                incorrect.add(film);
-            }
-        }
-
-        result.removeAll(incorrect);
+        result.removeIf(film -> film.getName().matches("^[a-zA-Z]+$"));
 
         return result;
     }
@@ -98,10 +94,13 @@ public class StandardRealization {
     }
 
     public static Film maxFinder(List<Film> films) {
-        Film max = new Film(null, 0);
+        Film max = films.get(0);
 
         for (Film film : films) {
-            if (film.getRating() > max.getRating()) {
+            if (film.getRating() > MAX_RATING) {
+                throw new IllegalArgumentException(film.toString() +
+                        " is with rating higher than maximum available rating");
+            } else if (film.getRating() >= max.getRating()) {
                 max = film;
             }
         }
@@ -110,10 +109,13 @@ public class StandardRealization {
     }
 
     public static Film minFinder(List<Film> films) {
-        Film min = new Film(null, 100);
+        Film min = films.get(0);
 
         for (Film film : films) {
-            if (film.getRating() < min.getRating()) {
+            if (film.getRating() < MIN_RATING) {
+                throw new IllegalArgumentException(film.toString() +
+                        " is with rating less than minimum available rating");
+            } else if (film.getRating() <= min.getRating()) {
                 min = film;
             }
         }

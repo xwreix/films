@@ -17,10 +17,6 @@ public class Film implements Comparable<Film> {
         return name;
     }
 
-    public void showInfo() {
-        System.out.println(this.getName() + ": " + this.getRating());
-    }
-
     @Override
     public String toString() {
         return this.getName() + ": " + this.getRating();

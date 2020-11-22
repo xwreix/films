@@ -29,12 +29,24 @@ public class Main {
                 + StreamRealization.rangeFilter(films1, 3.0, 5.0));
         System.out.println("Films in the range from 6.0 to 9.6" +
                 StandardRealization.rangeFilter(films2, 6.0, 9.6));
-        System.out.println("\nMax:\n" + StreamRealization.maxFinder(films1) + "\n" + StandardRealization.maxFinder(films2));
-        System.out.println("Min:\n" + StreamRealization.minFinder(films1) + "\n" + StandardRealization.minFinder(films2));
+
+        System.out.println("\nMax:");
+        try {
+            System.out.println(StreamRealization.maxFinder(films1) + "\n"
+                    + StandardRealization.maxFinder(films2));
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+        }
+
+        System.out.println("\nMin:");
+        try {
+            System.out.println(StreamRealization.minFinder(films1) + "\n" + StandardRealization.minFinder(films2));
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     public static void listsFilling(List<Film> films1, List<Film> films2) {
-
         Film film1 = new Film("FilmOne1", 5.6);
         Film film2 = new Film("FilmTwo", 9.2);
         Film film3 = new Film("FilmThree", 3.6);
